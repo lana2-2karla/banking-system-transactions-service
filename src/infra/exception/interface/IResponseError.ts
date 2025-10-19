@@ -1,4 +1,4 @@
-interface IMobileError {
+interface IResponseError {
   status: number,
   json: {
     title: string,
@@ -6,4 +6,4 @@ interface IMobileError {
   }
 }
 
-export default IMobileError;
+export default IResponseError;
