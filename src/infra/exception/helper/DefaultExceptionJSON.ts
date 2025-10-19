@@ -1,8 +1,8 @@
-import IMobileError from '../interface/IMobileError';
+import IResponseError from '../interface/IResponseError';
 
 type IDefaultException = 'defaultError';
 
-const DefaultExceptionJSON: Record<IDefaultException, IMobileError> = {
+const DefaultExceptionJSON: Record<IDefaultException, IResponseError> = {
   defaultError: {
     status: 500,
     json: { 
