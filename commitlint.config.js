@@ -1,5 +1,5 @@
 const matchAnyType =
-  /(?<!:)(?::package: build|:wrench: chore|:bricks: ci|:books: docs|:sparkles: feat|:bug: fix|:zap: perf|:recycle: refactor|:boom: revert|:ok_hand: style|:test_tube: test|:card_file_box: raw|build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test|raw)\b(?!_)/;
+  /(?<!:)(?::package: build|:wrench: chore|:bricks: ci|:books: docs|:sparkles: feat|:bug: fix|:zap: perf|:recycle: refactor|:boom: revert|:ok_hand: style|:test_tube: test|:card_file_box: raw|:tada: init|build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test|raw|init)\b(?!_)/;
 const matchOptionalTicketNumberWithSpaceAfter = /(?:\((T-\d+)\)\s)?/;
 const subjectThatDontStartWithParenthesis = /([^\()].+)/;
 
@@ -68,7 +68,9 @@ ${allowedTypes.map((t) => `${t}`).join('\n')}`,
         'test',
         ':test_tube: test',
         'raw',
-        ':card_file_box: raw'
+        ':card_file_box: raw',
+        'tada',
+        ':tada: init'
       ],
     ],
   },
