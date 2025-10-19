@@ -1,0 +1,8 @@
+node_modules
+build
+tests
+nyc.config.js
+**/*.spec.ts
+_*
+commitlint.config.js
+src/infra/repository/prisma

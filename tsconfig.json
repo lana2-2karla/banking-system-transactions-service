@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    // Configuração do sistema de módulos para Node.js.
+    "module": "commonjs",
+    // Geração de arquivos de declaração para bibliotecas TypeScript.
+    "declaration": true,
+    // Remoção de comentários dos arquivos de saída JavaScript.
+    "removeComments": true,
+    // Habilitação de metadados de decoradores.
+    "emitDecoratorMetadata": true,
+    // Habilitação experimental de decoradores.
+    "experimentalDecorators": true,
+    // Permitir importações padrão sintéticas de módulos ES6.
+    "allowSyntheticDefaultImports": true,
+    // Geração de código para ECMAScript 2021.
+    "target": "ES2021",
+    // Geração de mapas de origem para facilitar a depuração.
+    "sourceMap": true,
+    // Diretório de saída para os arquivos compilados.
+    "outDir": "./dist",
+    // Caminho base para as importações.
+    "baseUrl": "./",
+    // Compilação incremental para melhor desempenho.
+    "incremental": true,
+    // Pular a verificação de bibliotecas no node_modules.
+    "skipLibCheck": true,
+    // Verificação rigorosa de nulos.
+    "strictNullChecks": true,
+    // Não emitir erros para tipos implícitos "any".
+    "noImplicitAny": false,
+    // Não forçar a verificação estrita de chamadas e aplicações de ligação.
+    "strictBindCallApply": false,
+    // Não obrigar nomes de arquivo a terem caixa consistente.
+    "forceConsistentCasingInFileNames": false,
+    // Não emitir erros em casos sem "break" em switch.
+    "noFallthroughCasesInSwitch": false,
+    // Caminhos para definições de tipos.
+    "typeRoots": ["./node_modules/@types", "./src/@types"],
+    // Mapeamento de caminhos de importação para aliases.
+    "paths": {
+      "@domain/*": ["./src/domain/*"],
+      "@infra/*": ["./src/infra/*"],
+      "@app/*": ["./src/app/*"],
+    }
+  }
+}
