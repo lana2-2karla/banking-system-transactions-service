@@ -1,3 +1,4 @@
+import IDecimalAdapter from '@domain/adapter/decimal/IDecimalAdapter';
 import TTransactionUseCaseCreateInput 
   from '@domain/case/transaction/input/TTransactionUseCaseCreateInput';
 import ITransactionUseCase from '@domain/case/transaction/ITransactionUseCase';
@@ -10,27 +11,38 @@ class TransactionUseCase implements ITransactionUseCase {
   constructor(
     private readonly _userUseCase: IUserUseCase,
     private readonly _transactionRepository: ITransactionRepository,
+    private readonly _decimalAdapter: IDecimalAdapter,
   ) {}
 
   async create(input: TTransactionUseCaseCreateInput): Promise<void> {
-    const { senderId, receiverId, amount } = input;
-    
-    if (senderId === receiverId) throw new TransactionException('sameUserError');
-    
-    const value = Number(amount);
-    const isInvalidAmount = !Number.isFinite(value) || value <= 0;
-    if (isInvalidAmount) throw new TransactionException('invalidAmountError');
+    this._validateInput(input);
 
-    const userSender = await this._getUserOrThrow(senderId, 'sender');
-    await this._getUserOrThrow(receiverId, 'receiver');
+    const sender = await this._getUserOrThrow(input.senderId, 'sender');
+    await this._getUserOrThrow(input.receiverId, 'receiver');
 
-    if (userSender.balance < amount) throw new TransactionException('insufficientBalance');
+    this._validateBalance(sender.balance, input.amount);
 
-    await this._transactionRepository.createAtomic({ 
-      senderId,
-      receiverId,
-      amount,
+    await this._transactionRepository.createAtomic({
+      senderId: input.senderId,
+      receiverId: input.receiverId,
+      amount: input.amount,
     });
+  }
+
+  private _validateInput(input: TTransactionUseCaseCreateInput): void {
+    const { senderId, receiverId, amount } = input;
+
+    if (senderId === receiverId) throw new TransactionException('sameUserError');
+
+    const value = Number(amount);
+    const isInvalid = !Number.isFinite(value) || value <= 0;
+    if (isInvalid) throw new TransactionException('invalidAmountError');
+  }
+
+  private _validateBalance(balance: string, amount: string) {
+    if (this._decimalAdapter.isLessThan(balance, amount)) {
+      throw new TransactionException('insufficientBalance');
+    }
   }
 
   private async _getUserOrThrow(id: string, role: 'sender' | 'receiver'): Promise<IUser> {
