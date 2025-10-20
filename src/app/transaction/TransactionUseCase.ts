@@ -16,7 +16,10 @@ class TransactionUseCase implements ITransactionUseCase {
     const { senderId, receiverId, amount } = input;
     
     if (senderId === receiverId) throw new TransactionException('sameUserError');
-    if (amount <= 0) throw new TransactionException('invalidAmountError');
+    
+    const value = Number(amount);
+    const isInvalidAmount = !Number.isFinite(value) || value <= 0;
+    if (isInvalidAmount) throw new TransactionException('invalidAmountError');
 
     const userSender = await this._getUserOrThrow(senderId, 'sender');
     await this._getUserOrThrow(receiverId, 'receiver');
