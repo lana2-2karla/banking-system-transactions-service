@@ -6,8 +6,11 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import TransactionException from '@domain/exception/transaction/TransactionException';
+import { ZodValidationException } from 'nestjs-zod';
 import DefaultExceptionJSON from './helper/DefaultExceptionJSON';
 import TransactionExceptionJSON from './helper/TransactionExceptionJSON';
+import IZodError from './interface/IZodError';
+import FormatZodException from './helper/FormatZodException';
 
 type TGenericErrorResponse = { status: number; json: object | string };
 
@@ -35,11 +38,17 @@ class GlobalExceptionFilter implements ExceptionFilter {
     console.log({ method: request.method, route: request.url });
 
     let errorResponse: TGenericErrorResponse;
+    let zodErrorResponse: IZodError;
 
     if (exception instanceof Error) {
       errorResponse = errorFilter(exception);
     } else {
       errorResponse = DefaultExceptionJSON.defaultError;
+    }
+
+    if (exception instanceof ZodValidationException) {
+      zodErrorResponse = FormatZodException(exception);
+      return response.status(zodErrorResponse.status).json(zodErrorResponse.json);
     }
 
     return response.status(errorResponse.status).json(errorResponse.json);
