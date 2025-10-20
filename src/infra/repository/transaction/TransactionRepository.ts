@@ -16,7 +16,7 @@ class TransactionRepository implements ITransactionRepository {
     const { senderId, receiverId, amount } = input;
     try {
       const transaction = await this._prisma.$transaction(async (prisma) => {
-        await this._updateBalance(prisma, senderId, amount);
+        await this._updateBalance(prisma, senderId, `-${amount}`);
         await this._updateBalance(prisma, receiverId, amount);
 
         return this._createTransaction(prisma, input, ETransactionStatus.FINALIZED);
