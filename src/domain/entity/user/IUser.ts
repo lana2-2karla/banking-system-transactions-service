@@ -1,7 +1,7 @@
 interface IUser {
   id: string;
   name: string;
-  balance: number;
+  balance: string;
 }
 
 export default IUser;
