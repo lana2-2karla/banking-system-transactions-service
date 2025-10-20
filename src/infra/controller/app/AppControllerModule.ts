@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common';
 import { Routes } from '@nestjs/core';
-import TemplateAppControllerModule from './template/TemplateAppControllerModule';
+import TransactionAppControllerModule from './transaction/TransactionAppControllerModule';
 
 const appRoutes: Routes = [
   {
-    path: 'template',
-    module: TemplateAppControllerModule,
+    path: 'transaction',
+    module: TransactionAppControllerModule,
   },
 ];
 
 @Module({
   imports: [
-    TemplateAppControllerModule,
+    TransactionAppControllerModule,
   ],
 })
 class AppControllerModule {}

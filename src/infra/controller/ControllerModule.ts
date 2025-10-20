@@ -5,7 +5,7 @@ import AppControllerModule, { appRoutes } from './app/AppControllerModule';
 
 const routes: Routes = [
   {
-    path: 'app',
+    path: 'api',
     module: AppControllerModule,
     children: appRoutes,
   },
