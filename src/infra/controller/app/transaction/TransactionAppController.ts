@@ -9,7 +9,6 @@ class TransactionAppController {
   ) { }
   @Post()
   async create(@Body() body: TransactionAppControllerCreateDTO) {
-    console.log(body, 'bodyyyy');
     await this._transactionUseCase.create(body);
   }
 }
