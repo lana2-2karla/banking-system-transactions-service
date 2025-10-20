@@ -1,16 +1,17 @@
-import { User as UserDB } from '@prisma/client'; 
+import IUser from '@domain/entity/user/IUser';
+import TUserDB from '../interface/TUserDBO';
 
-class UserDBO {
+class UserDBO implements IUser {
   id: string;
   name: string;
-  balance: number;
+  balance: string;
   createdAt: Date;
   updatedAt: Date;
 
-  constructor(input: UserDB) {
+  constructor(input: TUserDB) {
     this.id = input.id;
     this.name = input.name;
-    this.balance = Number(input.balance);
+    this.balance = input.balance.toFixed();
     this.createdAt = input.createdAt;
     this.updatedAt = input.updatedAt;
   }
