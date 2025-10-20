@@ -4,7 +4,7 @@ interface ITransaction {
   id: string;
   senderId: string; 
   receiverId: string
-  amount: number;
+  amount: string;
   status: ETransactionStatus;
   createdAt: Date;
 }
