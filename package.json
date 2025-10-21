@@ -7,9 +7,6 @@
   "license": "UNLICENSED",
   "scripts": {
     "generate": "bash ./script/generate.sh",
-    "reset": "bash ./script/reset.sh",
-    "relogs": "bash ./script/relogs.sh",
-    "start:pm2": "bash ./script/init.sh",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -22,8 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "prepare": "husky install",
-    "setup": "npm run prepare && npm install && docker compose up --build -d"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@nestjs/axios": "^3.0.2",
