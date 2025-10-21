@@ -7,15 +7,20 @@ import {
 import { Request, Response } from 'express';
 import TransactionException from '@domain/exception/transaction/TransactionException';
 import { ZodValidationException } from 'nestjs-zod';
+import AuthorizationException from '@domain/exception/authorization/AuthorizationException';
 import DefaultExceptionJSON from './helper/DefaultExceptionJSON';
 import TransactionExceptionJSON from './helper/TransactionExceptionJSON';
 import IZodError from './interface/IZodError';
 import FormatZodException from './helper/FormatZodException';
+import AuthorizationExceptionJSON from './helper/AuthorizationExceptionJSON';
 
 type TGenericErrorResponse = { status: number; json: object | string };
 
 const errorObject: Record<string, (error: Error) => TGenericErrorResponse> = {
   TransactionException: (error: TransactionException) => TransactionExceptionJSON[error.message],
+  AuthorizationException: (
+    error: AuthorizationException,
+  ) => AuthorizationExceptionJSON[error.message],
   HttpException: (error: HttpException) => (
     { status: error.getStatus(), json: error.getResponse() }
   ),
