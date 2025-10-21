@@ -3,6 +3,7 @@ type TTransactionException =
   | 'invalidAmountError'
   | 'senderNotFound'
   | 'receiverNotFound'
-  | 'insufficientBalance';
+  | 'insufficientBalance'
+  | 'unexpectedError';
 
 export default TTransactionException;
