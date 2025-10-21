@@ -1,0 +1,143 @@
+{
+	"info": {
+		"_postman_id": "239a3d41-5831-4adb-873e-b2d905ccd9e2",
+		"name": "transaction-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "21002244"
+	},
+	"item": [
+		{
+			"name": "transaction",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI1OTZDLTEwOGViZjk4LWVmMGQtNWQ5ZC04YTZhLTQ5ZmEwMDQyOTEyYSIsImVtYWlsIjoia2FpbGFueS5zaWx2YUBzdGF0aW9ucy5jbG91ZCIsImNvbXBhbnlJZCI6MjU5NiwiY3BmIjoiMTUwODQ3MjA2ODMiLCJuYW1lIjoiVGVzdGUiLCJleHRyYSI6e30sInBob25lIjpudWxsLCJjcmVhdGVkQXQiOiIyMDI1LTEwLTIxVDE4OjUyOjA5LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDI1LTEwLTIxVDE4OjUzOjMyLjAwMFoiLCJpYXQiOjE3NjEwNzI4MzJ9.JjLE1ZMvvGgo-Fl8bAAlvjsJkuUnIzHGKxcY9W_SKIc"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"senderId\": \"1fcfa6a8-1115-4650-89eb-b8c2d657dfc2\",\r\n  \"receiverId\": \"8d2f41e7-1a67-4f56-8d0b-62a0b5c2d8a3\",\r\n  \"amount\": \"5.00\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3007/api/transaction"
+			},
+			"response": []
+		},
+		{
+			"name": "transactions",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVodWpkYmhjdWpyaCIsIm5hbWUiOiJMdWxhIE1vbHVzY28iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2MTA3MjE0NiwiZXhwIjoxNzYxMDcyNDQ2fQ.sJ5iz7lIewwGNKFNTIlbMBdfNcvolwE-cmiVMphPO18"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3007/api/transaction/user/8d2f41e7-1a67-4f56-8d0b-62a0b5c3c8f3?page=1&limit=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3007",
+					"path": [
+						"api",
+						"transaction",
+						"user",
+						"8d2f41e7-1a67-4f56-8d0b-62a0b5c3c8f3"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1",
+							"description": "página (opcional)"
+						},
+						{
+							"key": "limit",
+							"value": "5",
+							"description": "limite de itens (opcional)"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "transactions",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3007/api/transaction/user/8d2f41e7-1a67-4f56-8d0b-62a0b5c3c8f3?page=1&limit=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3007",
+							"path": [
+								"api",
+								"transaction",
+								"user",
+								"8d2f41e7-1a67-4f56-8d0b-62a0b5c3c8f3"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "página (opcional)"
+								},
+								{
+									"key": "limit",
+									"value": "5",
+									"description": "limite de itens (opcional)"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1470"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"5be-wWvnkmmsSwv+tfP1yI8p1sX7uGQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 21 Oct 2025 21:26:13 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"page\": 1,\n    \"limit\": 5,\n    \"total\": 12,\n    \"totalPages\": 3,\n    \"data\": [\n        {\n            \"id\": \"a00baaab-6ba4-43c6-806b-e38fa65db9af\",\n            \"amount\": \"5\",\n            \"status\": \"FINALIZED\",\n            \"createdAt\": \"2025-10-21T00:54:41.861Z\",\n            \"sender\": {\n                \"id\": \"1fcfa6a8-1115-4650-89eb-b8c2d657dfc2\",\n                \"name\": \"Lula Molusco\"\n            },\n            \"receiver\": {\n                \"id\": \"8d2f41e7-1a67-4f56-8d0b-62a0b5c3c8f3\",\n                \"name\": \"Maria Joaquina\"\n            }\n        },\n        {\n            \"id\": \"1fcfa6a8-1115-4650-89eb-b8c2d657dfc2\",\n            \"amount\": \"10\",\n            \"status\": \"FINALIZED\",\n            \"createdAt\": \"2025-10-20T02:01:31.833Z\",\n            \"sender\": {\n                \"id\": \"8d2f41e7-1a67-4f56-8d0b-62a0b5c2d8a3\",\n                \"name\": \"José Firmino\"\n            },\n            \"receiver\": {\n                \"id\": \"8d2f41e7-1a67-4f56-8d0b-62a0b5c3c8f3\",\n                \"name\": \"Maria Joaquina\"\n            }\n        },\n        {\n            \"id\": \"c57c729d-7592-40ce-841f-af4df0f975da\",\n            \"amount\": \"10\",\n            \"status\": \"FINALIZED\",\n            \"createdAt\": \"2025-10-20T01:53:09.258Z\",\n            \"sender\": {\n                \"id\": \"8d2f41e7-1a67-4f56-8d0b-62a0b5c2d8a3\",\n                \"name\": \"José Firmino\"\n            },\n            \"receiver\": {\n                \"id\": \"8d2f41e7-1a67-4f56-8d0b-62a0b5c3c8f3\",\n                \"name\": \"Maria Joaquina\"\n            }\n        },\n        {\n            \"id\": \"0f98a788-623f-413b-8a52-72e879c2bd25\",\n            \"amount\": \"1289012345.98\",\n            \"status\": \"FINALIZED\",\n            \"createdAt\": \"2025-10-20T01:34:12.278Z\",\n            \"sender\": {\n                \"id\": \"8d2f41e7-1a67-4f56-8d0b-62a0b5c2d8a3\",\n                \"name\": \"José Firmino\"\n            },\n            \"receiver\": {\n                \"id\": \"8d2f41e7-1a67-4f56-8d0b-62a0b5c3c8f3\",\n                \"name\": \"Maria Joaquina\"\n            }\n        },\n        {\n            \"id\": \"012b72a6-c06e-40a2-9b6d-cc4c65040029\",\n            \"amount\": \"1289012345.98\",\n            \"status\": \"FINALIZED\",\n            \"createdAt\": \"2025-10-20T01:33:07.027Z\",\n            \"sender\": {\n                \"id\": \"8d2f41e7-1a67-4f56-8d0b-62a0b5c2d8a3\",\n                \"name\": \"José Firmino\"\n            },\n            \"receiver\": {\n                \"id\": \"8d2f41e7-1a67-4f56-8d0b-62a0b5c3c8f3\",\n                \"name\": \"Maria Joaquina\"\n            }\n        }\n    ]\n}"
+				}
+			]
+		}
+	]
+}
