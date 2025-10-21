@@ -1,0 +1,8 @@
+import ITransactionUseCaseBuildPaginationOutput from './ITransactionUseCaseBuildPaginationOutput';
+import ITransactionUseCaseFormatByUserIdOutput from './ITransactionUseCaseFormatByUserIdOutput';
+
+interface ITransactionUseCaseGetAllByUserIdOutput extends ITransactionUseCaseBuildPaginationOutput {
+  data: ITransactionUseCaseFormatByUserIdOutput[];
+}
+
+export default ITransactionUseCaseGetAllByUserIdOutput;
