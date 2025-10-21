@@ -7,26 +7,10 @@ services:
     volumes:
       - transactions_service_db_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=banking_transactions_db
     restart: always
-
-  transactions_app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: transactions-service-app
-    ports:
-      - "3000:3000"
-    depends_on:
-      - transactions_db
-    environment:
-      - DB_HOST=transactions_db
-      - DB_PORT=${DB_PORT}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_NAME=${DB_NAME}
 
 volumes:
   transactions_service_db_data:
