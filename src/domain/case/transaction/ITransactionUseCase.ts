@@ -1,9 +1,14 @@
 import TTransactionUseCaseCreateInput from './input/TTransactionUseCaseCreateInput';
-import TTransactionUseCaseGetByUserIdOutput from './output/TTransactionUseCaseGetByUserIdOutput';
+import ITransactionUseCaseGetAllByUserIdOutput 
+  from './output/ITransactionUseCaseGetAllByUserIdOutput';
  
 interface ITransactionUseCase {
   create(input: TTransactionUseCaseCreateInput): Promise<void>
-  getAllByUserId(userId: string): Promise<TTransactionUseCaseGetByUserIdOutput[]>
+  getAllByUserId(
+    userId: string,
+    page: number,
+    limit: number,
+  ): Promise<ITransactionUseCaseGetAllByUserIdOutput>
 }
 
 export default ITransactionUseCase;

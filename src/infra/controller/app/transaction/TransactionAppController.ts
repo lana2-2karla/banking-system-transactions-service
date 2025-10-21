@@ -1,8 +1,9 @@
 import TransactionUseCase from '@app/transaction/TransactionUseCase';
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import TTransactionUseCaseGetByUserIdOutput 
-  from '@domain/case/transaction/output/TTransactionUseCaseGetByUserIdOutput';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import ITransactionUseCaseGetAllByUserIdOutput 
+  from '@domain/case/transaction/output/ITransactionUseCaseGetAllByUserIdOutput';
 import TransactionAppControllerCreateDTO from './dto/TransactionAppControllerCreateDTO';
+import TransactionGetAllByUserIdQueryDTO from './dto/TransactionGetAllByUserIdQueryDTO';
 
 @Controller()
 class TransactionAppController {
@@ -17,8 +18,10 @@ class TransactionAppController {
   @Get('user/:userId')
   async getAllByUserId(
     @Param('userId') userId: string,
-  ): Promise<TTransactionUseCaseGetByUserIdOutput[]> {
-    return this._transactionUseCase.getAllByUserId(userId);
+      @Query() query: TransactionGetAllByUserIdQueryDTO,
+  ): Promise<ITransactionUseCaseGetAllByUserIdOutput> {
+    const { page, limit } = query;
+    return this._transactionUseCase.getAllByUserId(userId, page, limit);
   }
 }
 export default TransactionAppController;

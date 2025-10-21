@@ -3,7 +3,7 @@ import IUser from '@domain/entity/user/IUser';
 
 type TUserSummary = Pick<IUser, 'id' | 'name'>;
 
-type TTransactionUseCaseGetByUserIdOutput = {
+type ITransactionUseCaseFormatByUserIdOutput = {
   id: ITransaction['id'];
   amount: ITransaction['amount'];
   status: ITransaction['status'];
@@ -12,4 +12,4 @@ type TTransactionUseCaseGetByUserIdOutput = {
   receiver: TUserSummary;
 };
 
-export default TTransactionUseCaseGetByUserIdOutput;
+export default ITransactionUseCaseFormatByUserIdOutput;
