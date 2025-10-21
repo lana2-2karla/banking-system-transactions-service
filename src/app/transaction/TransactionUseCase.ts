@@ -2,7 +2,10 @@ import IDecimalAdapter from '@domain/adapter/decimal/IDecimalAdapter';
 import TTransactionUseCaseCreateInput 
   from '@domain/case/transaction/input/TTransactionUseCaseCreateInput';
 import ITransactionUseCase from '@domain/case/transaction/ITransactionUseCase';
+import TTransactionUseCaseGetByUserIdOutput 
+  from '@domain/case/transaction/output/TTransactionUseCaseGetByUserIdOutput';
 import IUserUseCase from '@domain/case/user/IUserUseCase';
+import ITransactionWithUsers from '@domain/entity/transaction/ITransactionWithUsers';
 import IUser from '@domain/entity/user/IUser';
 import TransactionException from '@domain/exception/transaction/TransactionException';
 import ITransactionRepository from '@domain/repository/transaction/ITransactionRepository';
@@ -29,6 +32,11 @@ class TransactionUseCase implements ITransactionUseCase {
     });
   }
 
+  async getAllByUserId(userId: string): Promise<TTransactionUseCaseGetByUserIdOutput[]> {
+    const transactions = await this._transactionRepository.getAllByUserId(userId);
+    return transactions.map((transaction) => this._formatTransactionsForUser(transaction));
+  }
+
   private _validateInput(input: TTransactionUseCaseCreateInput): void {
     const { senderId, receiverId, amount } = input;
 
@@ -49,6 +57,25 @@ class TransactionUseCase implements ITransactionUseCase {
     const user = await this._userUseCase.getById(id);
     if (!user) throw new TransactionException(`${role}NotFound`);
     return user;
+  }
+
+  private _formatTransactionsForUser(
+    transaction: ITransactionWithUsers,
+  ): TTransactionUseCaseGetByUserIdOutput {
+    return {
+      id: transaction.id,
+      amount: transaction.amount,
+      status: transaction.status,
+      createdAt: transaction.createdAt,
+      sender: {
+        id: transaction.sender.id,
+        name: transaction.sender.name,
+      },
+      receiver: {
+        id: transaction.receiver.id,
+        name: transaction.receiver.name,
+      },
+    };
   }
 }
 
