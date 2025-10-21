@@ -1,6 +1,6 @@
 import ETransactionStatus from '@domain/entity/transaction/ETransactionStatus';
 import ITransactionWithUsers from '@domain/entity/transaction/ITransactionWithUsers';
-import TTansactionUserDBStrict from '../interface/TTansactionUserDBStrict';
+import TTransactionUserDBStrict from '../interface/TTransactionUserDBStrict';
 
 class TransactionWithUsersDBO implements ITransactionWithUsers {
   id: string;
@@ -12,7 +12,7 @@ class TransactionWithUsersDBO implements ITransactionWithUsers {
   sender: { id: string; name: string; balance: string };
   receiver: { id: string; name: string; balance: string };
 
-  constructor(input: TTansactionUserDBStrict) {
+  constructor(input: TTransactionUserDBStrict) {
     this.id = input.id;
     this.senderId = input.senderId;
     this.receiverId = input.receiverId;

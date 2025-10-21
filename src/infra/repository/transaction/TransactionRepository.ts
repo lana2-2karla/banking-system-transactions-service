@@ -10,8 +10,8 @@ import Prisma, { IPrisma } from '../prisma/Prisma';
 import TransactionDBO from './dbo/TransactionDBO';
 import TTransactionDB from './interface/TTransactionDB';
 import TransactionWithUsersDBO from './dbo/TransactionWithUsersDBO';
-import TTansactionUserDBStrict from './interface/TTansactionUserDBStrict';
-import TTansactionUserDB from './interface/TTansactionUserDB';
+import TTransactionUserDBStrict from './interface/TTransactionUserDBStrict';
+import TTransactionUserDB from './interface/TTransactionUserDB';
 
 @Injectable()
 class TransactionRepository implements ITransactionRepository {
@@ -71,14 +71,14 @@ class TransactionRepository implements ITransactionRepository {
   }
 
   private _filterValidTransactions(
-    transactions: TTansactionUserDB[],
-  ): TTansactionUserDBStrict[] {
+    transactions: TTransactionUserDB[],
+  ): TTransactionUserDBStrict[] {
     return transactions.filter(this._hasValidRelations);
   }
 
   private _hasValidRelations(
-    transaction: TTansactionUserDB,
-  ): transaction is TTansactionUserDBStrict {
+    transaction: TTransactionUserDB,
+  ): transaction is TTransactionUserDBStrict {
     const valid = Boolean(transaction.sender && transaction.receiver);
     if (!valid) {
       console.warn(`Transação ${transaction.id} está sem remetente ou destinatário.`);
