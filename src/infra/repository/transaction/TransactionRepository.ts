@@ -4,14 +4,20 @@ import TTransactionRepositoryCreateInput
 import ITransactionRepository from '@domain/repository/transaction/ITransactionRepository';
 import ETransactionStatus from '@domain/entity/transaction/ETransactionStatus';
 import { Injectable } from '@nestjs/common';
-import ITransactionWithUsers from '@domain/entity/transaction/ITransactionWithUsers';
 import TransactionException from '@domain/exception/transaction/TransactionException';
+import TTransactionRepositoryGetAllByUserIdOutput 
+  from '@domain/repository/transaction/output/TTransactionRepositoryGetAllByUserIdOutput';
 import Prisma, { IPrisma } from '../prisma/Prisma';
 import TransactionDBO from './dbo/TransactionDBO';
 import TTransactionDB from './interface/TTransactionDB';
 import TransactionWithUsersDBO from './dbo/TransactionWithUsersDBO';
 import TTransactionUserDBStrict from './interface/TTransactionUserDBStrict';
 import TTransactionUserDB from './interface/TTransactionUserDB';
+import TTransactionRepositoryGetAllByUserIdFilter 
+  from './interface/TTransactionRepositoryGetAllByUserIdFilter';
+import IPrismaPagination from './interface/IPrismaPagination';
+import TTransactionFetchGetAllByUserIdResult 
+  from './interface/TTransactionFetchGetAllByUserIdResult';
 
 @Injectable()
 class TransactionRepository implements ITransactionRepository {
@@ -33,17 +39,25 @@ class TransactionRepository implements ITransactionRepository {
     }
   }
 
-  async getAllByUserId(userId: string): Promise<ITransactionWithUsers[]> {
+  async getAllByUserId(
+    userId: string,
+    page: number,
+    limit: number,
+  ): Promise<TTransactionRepositoryGetAllByUserIdOutput> {
     try {
-      const transactions = await this._prisma.transaction.findMany({
-        where: { OR: [{ senderId: userId }, { receiverId: userId }] },
-        include: { sender: true, receiver: true },
-        orderBy: { createdAt: 'desc' },
-      });
+      const pagination = this._getPagination(page, limit);
+      const whereClause = this._getTransactionUserFilter(userId);
+
+      const [transactions, total] = await this._fetchTransactionsAndCount(whereClause, pagination);
 
       const validTransactions = this._filterValidTransactions(transactions);
 
-      return validTransactions.map((transaction) => new TransactionWithUsersDBO(transaction));
+      return {
+        transactions: validTransactions.map(
+          (transaction) => new TransactionWithUsersDBO(transaction),
+        ),
+        total,
+      };
     } catch (error) {
       throw new TransactionException('unexpectedError');
     }
@@ -84,6 +98,34 @@ class TransactionRepository implements ITransactionRepository {
       console.warn(`Transação ${transaction.id} está sem remetente ou destinatário.`);
     }
     return valid;
+  }
+
+  private _getTransactionUserFilter(userId: string): TTransactionRepositoryGetAllByUserIdFilter {
+    return {
+      OR: [{ senderId: userId }, { receiverId: userId }],
+    };
+  }
+
+  private _getPagination(page: number, limit: number): IPrismaPagination {
+    return {
+      skip: (page - 1) * limit,
+      take: limit,
+    };
+  }
+
+  private async _fetchTransactionsAndCount(
+    where: object,
+    pagination: IPrismaPagination,
+  ): TTransactionFetchGetAllByUserIdResult {
+    return this._prisma.$transaction([
+      this._prisma.transaction.findMany({
+        where,
+        include: { sender: true, receiver: true },
+        orderBy: { createdAt: 'desc' },
+        ...pagination,
+      }),
+      this._prisma.transaction.count({ where }),
+    ]);
   }
 }
 
