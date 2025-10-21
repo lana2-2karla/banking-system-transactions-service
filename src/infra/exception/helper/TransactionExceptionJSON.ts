@@ -37,6 +37,13 @@ const TransactionExceptionJSON: Record<TTransactionException, IResponseError> = 
       message: 'O usuário remetente não possui saldo suficiente para esta transação.',
     },
   },
+  unexpectedError: {
+    status: 500,
+    json: {
+      title: 'Erro inesperado',
+      message: 'Ocorreu um erro inesperado ao processar a transação. Tente novamente.',
+    },
+  },
 };
 
 export default TransactionExceptionJSON;
