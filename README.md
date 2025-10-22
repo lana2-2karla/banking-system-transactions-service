@@ -151,7 +151,18 @@ Isso iniciará um banco PostgreSQL local na porta `5432`.
 
 ---
 
-## 🧩 Postman completo com todos os endpoints
+## 🧩 Testando os Endpoints com Postman
 
-- [Postman)](https://www.postman.com/downloads/)
+Para testar os endpoints deste microserviço, recomendo o uso do [Postman](https://www.postman.com/downloads/).  
+
+Na raiz do projeto, foi criada uma pasta chamada `postman`, que contém o arquivo `transaction-service.postman_collection.json`.  
+
+### Como usar:
+
+1. Baixe e instale o Postman, caso ainda não tenha.
+2. Importe o arquivo `transaction-service.postman_collection.json` no Postman:
+   - Abra o Postman.
+   - Clique em **Import** no canto superior esquerdo.
+   - Selecione **File** e escolha o arquivo `transaction-service.postman_collection.json`.
+3. Após importar, você terá todos os endpoints prontos para testar.
 
